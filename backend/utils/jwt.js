@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 
+const JWT_SECRET = process.env.JWT_SECRET || 'default_secret_key_for_development';
+
 const generateToken = (user) => {
   return jwt.sign(
     { 
@@ -7,13 +9,13 @@ const generateToken = (user) => {
       email: user.email, 
       role: user.role 
     },
-    process.env.JWT_SECRET,
+    JWT_SECRET,
     { expiresIn: '7d' }
   );
 };
 
 const verifyToken = (token) => {
-  return jwt.verify(token, process.env.JWT_SECRET);
+  return jwt.verify(token, JWT_SECRET);
 };
 
 module.exports = {
