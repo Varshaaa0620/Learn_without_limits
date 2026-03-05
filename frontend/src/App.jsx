@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import CourseDetail from './pages/CourseDetail';
 import Learning from './pages/Learning';
+import Chatbot from './pages/Chatbot';
 
 // Protected route component
 const ProtectedRoute = ({ children }) => {
@@ -42,6 +43,7 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
+              <Route path="/chat" element={<Chatbot />} />
             </Routes>
           </main>
         </div>

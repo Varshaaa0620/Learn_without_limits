@@ -18,6 +18,9 @@ const Navbar = () => {
         </Link>
         
         <div style={styles.navLinks}>
+          <Link to="/chat" style={styles.aiButton}>
+            🤖 Ask AI
+          </Link>
           {isAuthenticated ? (
             <>
               <span style={styles.welcome}>Welcome, {user?.full_name}</span>
@@ -83,6 +86,25 @@ const styles = {
   },
   welcome: {
     color: '#fff'
+  },
+  aiButton: {
+    backgroundColor: '#e94560',
+    color: '#fff',
+    padding: '10px 24px',
+    borderRadius: '6px',
+    textDecoration: 'none',
+    fontSize: '1rem',
+    fontWeight: '600',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    transition: 'all 0.2s',
+    boxShadow: '0 2px 8px rgba(233, 69, 96, 0.3)',
+    ':hover': {
+      backgroundColor: '#d63d56',
+      transform: 'translateY(-1px)',
+      boxShadow: '0 4px 12px rgba(233, 69, 96, 0.4)'
+    }
   }
 };
 

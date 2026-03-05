@@ -53,4 +53,10 @@ export const progressAPI = {
   getCompletedLessons: (courseId) => api.get(`/progress/completed/${courseId}`)
 };
 
+// Chat APIs
+export const chatAPI = {
+  sendMessage: (message, history = []) => api.post('/chat', { message, history }),
+  healthCheck: () => api.get('/chat/health')
+};
+
 export default api;

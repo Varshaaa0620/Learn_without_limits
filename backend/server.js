@@ -12,6 +12,7 @@ const courseRoutes = require('./routes/courses');
 const lessonRoutes = require('./routes/lessons');
 const enrollmentRoutes = require('./routes/enrollments');
 const progressRoutes = require('./routes/progress');
+const chatRoutes = require('./routes/chat');
 
 // Import database connection and models
 const sequelize = require('./config/database');
@@ -35,6 +36,7 @@ app.use('/api/courses', courseRoutes);
 app.use('/api/lessons', lessonRoutes);
 app.use('/api/enrollments', enrollmentRoutes);
 app.use('/api/progress', progressRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
