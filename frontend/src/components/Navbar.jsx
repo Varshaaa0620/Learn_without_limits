@@ -19,7 +19,7 @@ const Navbar = () => {
         
         <div style={styles.navLinks}>
           <Link to="/chat" style={styles.aiButton}>
-            🤖 Ask AI
+            🤖 AI Assistant
           </Link>
           {isAuthenticated ? (
             <>
