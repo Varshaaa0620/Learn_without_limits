@@ -83,23 +83,46 @@ router.post('/', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Chat API error:', error.response?.data || error.message);
+    console.error('Chat API error:', {
+      status: error.response?.status,
+      data: error.response?.data,
+      message: error.message,
+      stack: error.stack
+    });
+    
+    // Return detailed error for debugging
+    const errorMessage = error.response?.data?.error || error.message;
     
     // Handle specific Hugging Face errors
     if (error.response?.status === 503) {
       return res.status(503).json({ 
-        message: 'The AI model is currently loading. Please try again in a few moments.' 
+        message: 'The AI model is currently loading. Please try again in a few moments.',
+        error: errorMessage
       });
     }
     
     if (error.response?.status === 429) {
       return res.status(429).json({ 
-        message: 'Too many requests. Please wait a moment before trying again.' 
+        message: 'Too many requests. Please wait a moment before trying again.',
+        error: errorMessage
+      });
+    }
+    
+    if (error.response?.status === 401) {
+      return res.status(401).json({ 
+        message: 'Invalid API key.',
+        error: errorMessage
       });
     }
 
     res.status(500).json({ 
-      message: 'Failed to get response from AI. Please try again later.' 
+      message: 'Failed to get response from AI. Please try again later.',
+      error: errorMessage,
+      debug: {
+        hasKey: !!getApiKey(),
+        keyLength: getApiKey()?.length,
+        model: HF_MODEL
+      }
     });
   }
 });
