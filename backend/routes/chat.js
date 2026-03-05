@@ -3,23 +3,23 @@ const router = express.Router();
 const axios = require('axios');
 
 // Hugging Face API configuration
-const HF_API_KEY = process.env.HUGGINGFACE_API_KEY;
 const HF_MODEL = 'Nanbeige/Nanbeige4.1-3B';
 
-// Debug logging (remove in production)
-console.log('HUGGINGFACE_API_KEY exists:', !!HF_API_KEY);
-console.log('HUGGINGFACE_API_KEY length:', HF_API_KEY ? HF_API_KEY.length : 0);
+// Helper function to get API key at runtime
+const getApiKey = () => process.env.HUGGINGFACE_API_KEY;
 
 // Chat endpoint
 router.post('/', async (req, res) => {
   try {
     const { message, history = [] } = req.body;
+    const HF_API_KEY = getApiKey();
 
     if (!message) {
       return res.status(400).json({ message: 'Message is required.' });
     }
 
     if (!HF_API_KEY) {
+      console.error('HUGGINGFACE_API_KEY is not set. Current env:', Object.keys(process.env).filter(k => k.includes('HUGGING')));
       return res.status(500).json({ message: 'Hugging Face API key not configured.' });
     }
 
@@ -95,6 +95,7 @@ router.post('/', async (req, res) => {
 
 // Health check for chat API
 router.get('/health', (req, res) => {
+  const HF_API_KEY = getApiKey();
   res.json({ 
     status: 'OK', 
     model: HF_MODEL,
