@@ -6,6 +6,10 @@ const axios = require('axios');
 const HF_API_KEY = process.env.HUGGINGFACE_API_KEY;
 const HF_MODEL = 'Nanbeige/Nanbeige4.1-3B';
 
+// Debug logging (remove in production)
+console.log('HUGGINGFACE_API_KEY exists:', !!HF_API_KEY);
+console.log('HUGGINGFACE_API_KEY length:', HF_API_KEY ? HF_API_KEY.length : 0);
+
 // Chat endpoint
 router.post('/', async (req, res) => {
   try {
