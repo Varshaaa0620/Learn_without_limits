@@ -6,7 +6,10 @@ const axios = require('axios');
 const HF_MODEL = 'Nanbeige/Nanbeige4.1-3B';
 
 // Helper function to get API key at runtime
-const getApiKey = () => process.env.HUGGINGFACE_API_KEY;
+const getApiKey = () => {
+  // Try environment variable first, fallback to hardcoded key
+  return process.env.HUGGINGFACE_API_KEY || 'hf_jBWoe1dvZyJAIcDhZcMALhjsRGUBhXDaqj';
+};
 
 // Chat endpoint
 router.post('/', async (req, res) => {
