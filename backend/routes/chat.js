@@ -19,8 +19,16 @@ router.post('/', async (req, res) => {
     }
 
     if (!HF_API_KEY) {
-      console.error('HUGGINGFACE_API_KEY is not set. Current env:', Object.keys(process.env).filter(k => k.includes('HUGGING')));
-      return res.status(500).json({ message: 'Hugging Face API key not configured.' });
+      console.error('HUGGINGFACE_API_KEY is not set.');
+      console.error('All env keys:', Object.keys(process.env));
+      console.error('Looking for HUGGINGFACE:', Object.keys(process.env).filter(k => k.toLowerCase().includes('hugging')));
+      return res.status(500).json({ 
+        message: 'Hugging Face API key not configured.',
+        debug: {
+          envKeys: Object.keys(process.env),
+          hasKey: false
+        }
+      });
     }
 
     // Format conversation history for the model
